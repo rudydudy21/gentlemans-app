@@ -1,5 +1,6 @@
 import { getLeagueData, transformSheetData } from '@/lib/sheets';
 import OADCard from '@/components/OADCard';
+import { analytics_v3 } from 'googleapis';
 
 export default async function OADPage() {
   const rawData = await getLeagueData();
@@ -52,7 +53,7 @@ export default async function OADPage() {
     };
   });
 
-  const maxEarnings = Math.max(...memberData.map(m => m.totalNumeric));
+  const maxEarnings = Math.max(...memberData.map((m: any) => m.totalNumeric));
 
   return (
     <main className="min-h-screen bg-gentle-charcoal p-6 pb-24">
@@ -66,7 +67,7 @@ export default async function OADPage() {
       </header>
 
       <div className="space-y-4">
-        {memberData.map((member) => {
+        {memberData.map((member:any) => {
           const isLeader = member.totalNumeric === maxEarnings && maxEarnings > 0;
 
           return (

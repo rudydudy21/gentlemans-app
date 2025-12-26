@@ -48,7 +48,7 @@ export default async function LivePage() {
         </div>
 
         <div className="divide-y divide-white/5">
-          {players.map((p, idx) => (
+          {players.map((p:any, idx:any) => (
             <LiveScoringRow key={idx} data={p} />
           ))}
         </div>

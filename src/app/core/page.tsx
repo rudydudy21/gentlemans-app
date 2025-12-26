@@ -31,7 +31,7 @@ export default async function CorePage() {
   });
 
   // Calculate the leader
-  const maxEarnings = Math.max(...memberRosters.map(m => m.numericTotal));
+  const maxEarnings = Math.max(...memberRosters.map((m: any) => m.numericTotal));
 
   return (
     <main className="min-h-screen bg-gentle-charcoal p-4 sm:p-8 pb-24">
