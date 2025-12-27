@@ -35,6 +35,7 @@ export default async function Home() {
     return parseCurrency(b[3]) - parseCurrency(a[3]);
   });
 
+  const maxTotal = Math.max(...sortedLeaderboard.map((row: any) => parseCurrency(row[3])));
   return (
     <main className="min-h-screen bg-gentle-charcoal p-4 sm:p-6 pb-32">
       <header className="mb-10 pt-4 px-2">
@@ -46,69 +47,48 @@ export default async function Home() {
         </p>
       </header>
 
-      <div className="space-y-4">
-        {sortedLeaderboard.map((row: any, index: number) => {
-  const coreVal = parseCurrency(row[1]); 
-  const oadVal = parseCurrency(row[2]);  
-  const totalVal = parseCurrency(row[3]); 
+      <div className="space-y-3">
   
-  // Calculate the percentage for the bar
-  const corePercent = totalVal > 0 ? (coreVal / totalVal) * 100 : 0;
+{sortedLeaderboard.map((row: any, index: number) => {
+    const coreVal = parseCurrency(row[1]);
+    const oadVal = parseCurrency(row[2]);
+    const totalVal = parseCurrency(row[3]);
+    const barScalePercent = maxTotal > 0 ? (totalVal / maxTotal) * 100 : 0;
+    const coreWidth = totalVal > 0 ? (coreVal / totalVal) * 100 : 0;
 
-  return (
-    <div key={row[0] || index} className="mb-8">
-      <LeaderboardCard
-        name={row[0]}         
-        total={row[3] || "$0"}        
-        rank={index + 1}      
-        change="none" 
-        colorClass={index === 0 
-          ? "bg-gentle-gold/15 border border-gentle-gold/30 shadow-[0_0_20px_rgba(184,155,114,0.15)]" 
-          : "bg-white/5 border border-white/5"
-        }
-      />
-      
-{/* TALLER, COHESIVE BAR */}
-      <div className="mx-2 -mt-2"> {/* Negative margin pulls it closer to the card */}
-        <div className="h-4 w-full bg-black/40 rounded-b-xl flex overflow-hidden border-x border-b border-white/10">
-          {/* Core 3 Portion */}
-          <div 
-            className="h-full bg-gentle-gold flex items-center px-2 min-w-fit" 
-            style={{ width: `${corePercent}%` }}
-          >
-            {corePercent > 15 && (
-              <span className="text-[8px] text-black font-black uppercase whitespace-nowpax">
-                Core
-              </span>
-            )}
+    return (
+      <div key={index} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden shadow-lg">
+        {/* Main Info Row */}
+        <div className="p-4 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+             <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-black italic text-gentle-gold border border-white/10">{index + 1}</span>
+             <span className="text-lg font-black italic text-white uppercase">{row[0]}</span>
           </div>
-          {/* OAD Portion */}
-          <div 
-            className="h-full bg-gentle-stone/30 flex items-center justify-end px-2" 
-            style={{ width: `${100 - corePercent}%` }}
-          >
-            {(100 - corePercent) > 15 && (
-              <span className="text-[8px] text-gentle-stone font-black uppercase whitespace-nowrap">
-                OAD
-              </span>
-            )}
+          <div className="text-right">
+            <span className="block text-[8px] text-white/40 font-black uppercase tracking-widest">Earnings</span>
+            <span className="text-xl font-black italic text-white leading-none">{row[3]}</span>
           </div>
         </div>
 
-        {/* Dynamic Labels beneath the bar */}
-        <div className="flex justify-between mt-1 px-1">
-          <span className="text-gentle-gold text-[10px] font-mono font-bold">
-            ${coreVal.toLocaleString()}
-          </span>
-          <span className="text-gentle-stone text-[10px] font-mono font-bold">
-            ${oadVal.toLocaleString()}
-          </span>
+        {/* The Bar - Now integrated and thicker */}
+        <div className="px-4 pb-4">
+          <div style={{ width: `${barScalePercent}%` }} className="h-6 flex rounded-md overflow-hidden border border-black/20 shadow-inner">
+             <div className="h-full bg-gentle-gold flex items-center px-2" style={{ width: `${coreWidth}%` }}>
+               {coreWidth > 20 && <span className="text-[9px] font-black italic text-black uppercase">Core</span>}
+             </div>
+             <div className="h-full bg-white/10 flex items-center justify-end px-2" style={{ width: `${100 - coreWidth}%` }}>
+               {(100 - coreWidth) > 20 && <span className="text-[9px] font-black italic text-white/40 uppercase">OAD</span>}
+             </div>
+          </div>
+          <div className="flex justify-between mt-1 text-[10px] font-mono italic font-bold">
+             <span className="text-gentle-gold">${coreVal.toLocaleString()}</span>
+             <span className="text-white/30">${oadVal.toLocaleString()}</span>
+          </div>
         </div>
       </div>
-    </div>
-  );
-})}
-      </div>
-    </main>
-  );
+    );
+  })}
+</div>
+  </main>
+);
 }
