@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Golf Pool Live",
+  title: "Gentleman's Classic",
   description: "Live scoring and OAD tracking",
 };
 
