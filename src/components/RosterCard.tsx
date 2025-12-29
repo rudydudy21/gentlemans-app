@@ -24,7 +24,7 @@ export default function RosterCard({ name, totalEarnings, golfers }: RosterCardP
       >
         <div>
           <div className="flex items-center gap-3 flex-wrap">
-            <h3 className="text-white font-bold text-xl uppercase tracking-tight italic">{name}</h3>
+            <h3 className="text-white font-bold text-xl uppercase tracking-tight">{name}</h3>
           </div>
           <p className="text-gentle-gold text-[10px] font-bold uppercase tracking-widest mt-1 flex items-center gap-1 italic opacity-80">
             <Users size={12} /> Roster Locked

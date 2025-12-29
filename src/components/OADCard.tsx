@@ -33,7 +33,7 @@ export default function OADCard({
         {/* Left */}
         <div className="min-w-0">
           <div className="flex items-center gap-3 flex-wrap">
-            <h3 className="text-white font-bold text-xl uppercase tracking-tight italic">
+            <h3 className="text-white font-bold text-xl uppercase tracking-tight">
               {name}
             </h3>
           </div>
