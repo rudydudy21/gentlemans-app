@@ -14,40 +14,47 @@ type Props = {
 
 export default function LiveScoringRow({ data }: Props) {
   const { owner, player, pos, score, today, thru, earnings } = data;
+  const isFinal = earnings && earnings !== "$0" && earnings !== "" && earnings !== "-";
 
   return (
-    <div className="grid grid-cols-[40px_1fr_60px_60px_50px] sm:grid-cols-[40px_1fr_80px_80px_60px_100px] gap-2 px-4 py-3 items-start">
+    <div className="grid grid-cols-[40px_1fr_60px_60px_50px] sm:grid-cols-[40px_1fr_80px_80px_60px_100px] gap-2 px-4 py-4 items-center border-b border-white/5 last:border-0 bg-transparent">
       {/* POS */}
-      <div className="text-gentle-stone text-[13px] font-black uppercase text-center">
-        <span>{pos ?? '-'}</span>
+      <div className="text-gentle-stone text-[11px] font-black uppercase italic text-center">
+        {pos ?? '-'}
       </div>
 
-      {/* Player (and owner as a secondary line on small screens).
-          On small screens we want the player to span the full width above the other columns.
+      {/* Golfer / Owner
+          On small screens this spans full width above the numeric columns (col-span-full).
           On sm+ it occupies the player column (col 2). */}
-      <div className="flex flex-col col-span-full sm:col-auto sm:col-start-2">
-        <span className="text-white font-black text-sm sm:text-base truncate">{player}</span>
-        <span className="text-gentle-gold text-xs mt-1 sm:mt-0 sm:text-[12px] sm:opacity-80">{owner}</span>
+      <div className="flex flex-col min-w-0 col-span-full sm:col-auto sm:col-start-2">
+        <span className="text-white font-black uppercase text-[13px] sm:text-base leading-tight truncate">
+          {player}
+        </span>
+        <span className="text-gentle-gold text-[9px] uppercase italic opacity-70 leading-none mt-0.5 tracking-tighter">
+          {owner}
+        </span>
       </div>
 
-      {/* Total - on small screens force it to start at column 3 so it lines up under the header */}
-      <div className="text-center font-black text-white col-start-3 sm:col-auto">
-        {score ?? '-'}
+      {/* Total - ensure it aligns under header on small screens (col-start-3) */}
+      <div className="text-center font-black text-[13px] sm:text-lg col-start-3 sm:col-auto whitespace-nowrap">
+        <span className={score?.toString().includes('-') ? 'text-red-500' : 'text-white'}>
+          {score ?? '-'}
+        </span>
       </div>
 
-      {/* Today - align under header's Today column (col 4 on small grid) */}
-      <div className="text-center text-gentle-stone col-start-4 sm:col-auto">
-        {today ?? '-'}
+      {/* Today - align under header's Today column (col-start-4) */}
+      <div className="text-center text-gentle-stone col-start-4 sm:col-auto whitespace-nowrap">
+        {today || '-'}
       </div>
 
-      {/* Thru - align under header's Thru column (col 5 on small grid) */}
-      <div className="text-center text-gentle-stone col-start-5 sm:col-auto">
-        {thru ?? '-'}
-      </div>
-
-      {/* Earnings hidden on small screens, shown on sm+ (occupies last column on sm+) */}
-      <div className="hidden sm:block text-right text-gentle-stone font-black sm:col-start-6">
-        {earnings ?? '-'}
+      {/* Thru / Payout - align under header's Thru column (col-start-5).
+          Use an end-aligned column with a small stacked label */}
+      <div className="text-right text-gentle-gold col-start-5 sm:col-auto">
+        <div className="flex flex-col items-end">
+          <span className="font-black italic text-[11px] sm:text-sm leading-none">
+            {isFinal ? earnings : (thru || '-')}
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -106,7 +106,7 @@ export default function OADCard({
                     {week.golfer}
                   </span>
 
-                  <span className="text-right text-white font-mono font-bold text-base tracking-tight tabular-nums">
+                  <span className="text-right text-white text-sm font-mono font-bold tracking-tight tabular-nums">
                     {week.money}
                   </span>
                 </div>

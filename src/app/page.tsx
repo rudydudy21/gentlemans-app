@@ -62,11 +62,11 @@ export default async function Home() {
         <div className="p-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
              <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-black italic text-gentle-gold border border-white/10">{index + 1}</span>
-             <span className="text-lg font-black italic text-white uppercase">{row[0]}</span>
+             <span className="text-lg font-black text-white uppercase">{row[0]}</span>
           </div>
           <div className="text-right">
             <span className="block text-[8px] text-white/40 font-black uppercase tracking-widest">Earnings</span>
-            <span className="text-xl font-black italic text-white leading-none">{row[3]}</span>
+            <span className="text-xl font-black text-white leading-none">{row[3]}</span>
           </div>
         </div>
 
