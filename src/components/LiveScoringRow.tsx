@@ -22,7 +22,7 @@ export default function LiveScoringRow({ data }: Props) {
       {/* LAYER 1: POS & GOLFER */}
       <div className="flex items-center gap-2 mb-0.5">
         <span className="text-gentle-gold font-black text-[12px] shrink-0">
-          #{pos ?? '-'}
+          {pos ?? '-'}
         </span>
         <span className="text-white font-black uppercase text-[15px] sm:text-lg leading-none tracking-tight">
           {player}
@@ -32,7 +32,7 @@ export default function LiveScoringRow({ data }: Props) {
       {/* LAYER 2: OWNER & STATS */}
       <div className="flex items-center justify-between">
         {/* Owner - Indented under name */}
-        <span className="text-white/40 text-[9px] uppercase font-bold tracking-widest italic ml-6">
+        <span className="text-white/40 text-[11px] uppercase font-bold tracking-widest italic ml-6">
           {owner}
         </span>
 
