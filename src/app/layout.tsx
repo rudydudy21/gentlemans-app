@@ -40,7 +40,6 @@ export const metadata: Metadata = {
     images: ["/SharingPic.png"],
   },
 };
-};
 
 export default function RootLayout({
   children,
