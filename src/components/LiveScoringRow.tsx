@@ -19,8 +19,11 @@ export default function LiveScoringRow({ data }: Props) {
   return (
     <div className="flex flex-col px-4 py-3 border-b border-white/5 last:border-0 bg-transparent">
       
-      {/* LAYER 1: POS & GOLFER */}
+      {/* LAYER 1: LIVE DOT, POS & GOLFER */}
       <div className="flex items-center gap-2 mb-0.5">
+        {/* The Live Dot */}
+        <div className="w-1.5 h-1.5 rounded-full bg-gentle-gold animate-pulse shrink-0" />
+        
         <span className="text-gentle-gold font-black text-[12px] shrink-0">
           {pos ?? '-'}
         </span>
@@ -31,12 +34,12 @@ export default function LiveScoringRow({ data }: Props) {
 
       {/* LAYER 2: OWNER & STATS */}
       <div className="flex items-center justify-between">
-        {/* Owner - Indented under name */}
-        <span className="text-white/40 text-[11px] uppercase font-bold tracking-widest italic ml-6">
+        {/* Owner - Indented under name (increased margin to account for dot) */}
+        <span className="text-white/40 text-[9px] uppercase font-bold tracking-widest italic ml-8">
           {owner}
         </span>
 
-        {/* Scoring Stats - Unified vertical alignment */}
+        {/* Scoring Stats - Unified items-center for perfect horizontal alignment */}
         <div className="flex items-center gap-6 shrink-0">
           {/* TOTAL */}
           <div className="flex flex-col items-center w-[40px]">
@@ -54,8 +57,8 @@ export default function LiveScoringRow({ data }: Props) {
             </span>
           </div>
 
-          {/* THRU / PAYOUT - Now centered vertically with the others */}
-          <div className="flex flex-col items-center min-w-[65px]">
+          {/* THRU / PAYOUT */}
+          <div className="flex flex-col items-center min-w-[70px]">
             <span className="text-[7px] text-white/20 uppercase font-black mb-1 tracking-tighter">
               {isFinal ? 'Payout' : 'Thru'}
             </span>

@@ -11,7 +11,7 @@ export default function BottomNav() {
     { name: 'Total', href: '/', icon: Trophy },
     { name: 'Core 3', href: '/core', icon: Shield },
     { name: 'O&D', href: '/oad', icon: Target },
-    { name: 'Tournament', href: '/live', icon: ListOrdered },
+    { name: 'Live Feed', href: '/live', icon: ListOrdered },
   ];
 
   return (
