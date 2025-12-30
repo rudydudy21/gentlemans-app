@@ -1,6 +1,8 @@
 import { getLeagueData, transformSheetData } from '@/lib/sheets';
 import RosterCard from '@/components/RosterCard';
 
+export const dynamic = 'force-dynamic';
+
 export default async function CorePage() {
   const rawData = await getLeagueData();
   if (!rawData) return <div className="p-10 text-white text-center">Data Unavailable</div>;

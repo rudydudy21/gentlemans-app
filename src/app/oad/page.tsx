@@ -2,6 +2,8 @@ import { getLeagueData, transformSheetData } from '@/lib/sheets';
 import OADCard from '@/components/OADCard';
 import { analytics_v3 } from 'googleapis';
 
+export const dynamic = 'force-dynamic';
+
 export default async function OADPage() {
   const rawData = await getLeagueData();
   if (!rawData) return <div className="p-10 text-white text-center">Data Unavailable</div>;

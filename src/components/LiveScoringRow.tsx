@@ -35,7 +35,7 @@ export default function LiveScoringRow({ data }: Props) {
       {/* LAYER 2: OWNER & STATS */}
       <div className="flex items-center justify-between">
         {/* Owner - Indented under name (increased margin to account for dot) */}
-        <span className="text-white/40 text-[9px] uppercase font-bold tracking-widest italic ml-8">
+        <span className="text-white/40 text-[13px] uppercase font-bold tracking-widest italic ml-8">
           {owner}
         </span>
 

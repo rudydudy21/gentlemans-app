@@ -1,6 +1,8 @@
 import { getLeagueData, transformSheetData } from '@/lib/sheets';
 import LeaderboardCard from '@/components/LeaderboardCard';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const rawData = await getLeagueData();
   
