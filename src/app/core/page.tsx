@@ -36,7 +36,7 @@ export default async function CorePage() {
   const maxEarnings = Math.max(...memberRosters.map((m: any) => m.numericTotal));
 
   return (
-    <main className="min-h-screen bg-gentle-charcoal p-4 sm:p-8 pb-24">
+    <main className="min-h-screen bg-black p-4 sm:p-8 pb-24">
       <header className="mb-10 pt-4">
         <h1 className="text-white text-3xl font-black tracking-tight italic uppercase">
           Core <span className="text-gentle-gold">3</span> Roster

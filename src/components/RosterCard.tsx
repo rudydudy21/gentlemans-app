@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, Users } from 'lucide-react';
+import { getOwnerGlow } from '@/lib/utils';
 
 interface RosterCardProps {
   name: string;
@@ -11,11 +12,10 @@ interface RosterCardProps {
 
 export default function RosterCard({ name, totalEarnings, golfers }: RosterCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const glowClasses = getOwnerGlow(name);
 
   return (
-    <div className="w-full rounded-2xl overflow-hidden transition-all duration-300 
-      bg-white/5 border border-white/5
-      hover:bg-white/[0.08] hover:border-white/20 hover:scale-[1.01] hover:shadow-xl">
+    <div className={`w-full rounded-2xl overflow-hidden bg-white/5 border shadow-lg transition-all duration-500 ${glowClasses}`}>
       
       {/* HEADER */}
       <button 
@@ -48,23 +48,27 @@ export default function RosterCard({ name, totalEarnings, golfers }: RosterCardP
 
       {/* ROSTER LIST */}
       {isOpen && (
-        <div className="bg-black/40 border-t border-white/5 px-6 sm:px-8 pb-6">
-          <div className="mt-4 space-y-1">
-            {/* Header Labels */}
-            <div className="grid grid-cols-[3fr_auto] gap-6 text-gentle-stone text-[10px] uppercase font-black tracking-[0.2em] pb-2 border-b border-white/10">
-              <span className="italic">Golfer</span>
-              <span className="text-right italic">Season Earnings</span>
-            </div>
-
-            {/* Individual Golfer Rows */}
+        <div className="bg-black/20 border-t border-white/5 px-6 pb-3">
+          <div className="mt-2 space-y-0.5">
+            {/* Clean, headerless rows to match OAD style */}
             {golfers.map((golfer, idx) => (
-              <div key={idx} className="grid grid-cols-[3fr_auto] gap-6 items-center py-4 border-b border-white/5 last:border-0">
-                <span className="text-white font-bold text-sm uppercase tracking-wide italic">
-                  {golfer.name}
-                </span>
-                <span className="text-right text-white font-mono font-bold text-base tabular-nums tracking-tight">
-                  {golfer.earnings}
-                </span>
+              <div
+                key={idx}
+                className="grid grid-cols-[1fr_auto] gap-4 items-center py-2 border-b border-white/5 last:border-0"
+              >
+                {/* Left Side: Name only (Since the "Tournament" isn't needed here) */}
+                <div className="flex flex-col min-w-0">
+                  <span className="text-white font-bold text-sm uppercase italic leading-tight">
+                    {golfer.name}
+                  </span>
+                </div>
+
+                {/* Right Side: Individual Earnings */}
+                <div className="text-right">
+                  <span className="text-white text-sm font-mono font-bold tracking-tight tabular-nums">
+                    {golfer.earnings}
+                  </span>
+                </div>
               </div>
             ))}
           </div>

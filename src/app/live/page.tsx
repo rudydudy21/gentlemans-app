@@ -7,8 +7,7 @@ export default async function LivePage() {
   const rawData = await getLeagueData();
   if (!rawData) return <div className="p-10 text-white text-center">Data Unavailable</div>;
 
-  const allData = transformSheetData(rawData);
-  const liveRows = allData.filtered || [];
+  const { filtered: liveRows, tournamentName } = transformSheetData(rawData);
 
   if (liveRows.length === 0) {
     return (
@@ -30,13 +29,25 @@ export default async function LivePage() {
   }));
 
   return (
-    <main className="min-h-screen bg-gentle-charcoal p-4 pb-24">
-      <header className="mb-6 pt-4 flex justify-between items-center px-2">
+    <main className="min-h-screen bg-black p-4 pb-24">
+      <header className="pt-4 flex justify-between items-center px-2">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
           <h1 className="text-white text-2xl font-black italic uppercase">Live <span className="text-gentle-gold">Feed</span></h1>
         </div>
       </header>
+      
+      {/* TOURNAMENT HEADER */}
+      <div className="px-2 mb-3 mt-2">
+        <div className="flex flex-col border-l-2 border-gentle-gold pl-3">
+          <span className="text-gentle-stone text-[10px] uppercase tracking-[0.4em] font-black">
+            Currently Playing
+          </span>
+          <h2 className="text-white text-xl sm:text-2xl font-black uppercase italic tracking-tighter leading-none mt-1">
+            {tournamentName || "Tournament Loading..."}
+          </h2>
+        </div>
+      </div>
 
       <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
         {/* Header — use same responsive grid as the rows so columns align perfectly */}

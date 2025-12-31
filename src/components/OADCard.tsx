@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { getOwnerGlow } from '@/lib/utils';
 
 interface OADCardProps {
   name: string;
@@ -22,6 +23,7 @@ export default function OADCard({
   history = [],
 }: OADCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const glowClasses = getOwnerGlow(name);
 
   // Helper to strip decimals and format as whole dollar
   const formatToWholeDollar = (val: string) => {
@@ -35,7 +37,7 @@ export default function OADCard({
   };
 
   return (
-    <div className="w-full rounded-2xl overflow-hidden transition-all duration-300 bg-white/5 border border-white/5">
+   <div className={`w-full rounded-2xl overflow-hidden bg-white/5 border shadow-lg transition-all duration-500 ${glowClasses}`}>
       {/* ================= HEADER ================= */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -72,28 +74,31 @@ export default function OADCard({
         <div className="bg-black/40 border-t border-white/5 px-6 sm:px-8 pb-6">
           {history.length > 0 ? (
             <div className="mt-4 space-y-1">
-              <div className="grid grid-cols-[2fr_3fr_auto] gap-6 text-gentle-stone text-[10px] uppercase font-black tracking-[0.2em] pb-2 border-b border-white/10">
-                <span>Tournament</span>
-                <span>Golfer</span>
-                <span className="text-right">Earnings</span>
+
+          {/* Rows */}
+          {history.map((week, idx) => (
+            <div
+              key={idx}
+              className="grid grid-cols-[1fr_auto] gap-4 items-center py-1 border-b border-white/5 last:border-0"
+            >
+              {/* Left Side: Stacked Info */}
+              <div className="flex flex-col min-w-0">
+                <span className="text-white font-bold text-sm uppercase italic leading-tight mb-1">
+                  {week.golfer}
+                </span>
+                <span className="text-gentle-stone text-[10px] uppercase tracking-wider truncate">
+                  {week.tournament}
+                </span>
               </div>
 
-              {history.map((week, idx) => (
-                <div
-                  key={idx}
-                  className="grid grid-cols-[2fr_3fr_auto] gap-6 items-center py-3 border-b border-white/5 last:border-0"
-                >
-                  <span className="text-gentle-stone text-[11px] italic truncate uppercase">
-                    {week.tournament}
-                  </span>
-                  <span className="text-white font-bold text-sm truncate uppercase italic">
-                    {week.golfer}
-                  </span>
-                  <span className="text-right text-white text-sm font-mono font-bold tracking-tight tabular-nums">
-                    {formatToWholeDollar(week.money)}
-                  </span>
-                </div>
-              ))}
+              {/* Right Side: Earnings */}
+              <div className="text-right">
+                <span className="text-white text-sm font-mono font-bold tracking-tight tabular-nums">
+                  {formatToWholeDollar(week.money)}
+                </span>
+              </div>
+            </div>
+          ))}
             </div>
           ) : (
             <div className="py-12 text-center text-gentle-stone text-xs uppercase tracking-[0.3em] italic">

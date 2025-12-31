@@ -1,6 +1,5 @@
-import { google, oracledatabase_v1 } from 'googleapis';
+import { google } from 'googleapis';
 
-// This handles the connection to Google
 export async function getLeagueData() {
   try {
     const auth = new google.auth.GoogleAuth({
@@ -17,7 +16,8 @@ export async function getLeagueData() {
       "'Leaderboard'!A1:AK9",    
       "'Core_Roster'!A2:K9",   
       "'OAD'!A1:DJ69",  
-      "'Filtered'!A1:G150"       
+      "'Filtered'!A1:G150",
+      "'Tournament_Config'!H13"
     ];
 
     const response = await sheets.spreadsheets.values.batchGet({
@@ -32,18 +32,18 @@ export async function getLeagueData() {
   }
 }
 
-// This handles cleaning the data
 export function transformSheetData(valueRanges: any[]) {
-  // Defensive check to ensure we have data
-  if (!valueRanges || valueRanges.length < 4) {
+  // Check for 5 ranges now
+  if (!valueRanges || valueRanges.length < 5) {
     console.error("Missing expected sheet ranges");
-    return { leaderboard: [], coreRoster: [], oad: [], filtered: [] };
+    return { leaderboard: [], coreRoster: [], oad: [], filtered: [], tournamentName: "" };
   }
 
   return {
     leaderboard: valueRanges[0].values || [],
     core: valueRanges[1].values || [],
     oad: valueRanges[2].values || [], 
-    filtered: valueRanges[3].values || []
+    filtered: valueRanges[3].values || [],
+    tournamentName: valueRanges[4].values?.[0]?.[0] || "Tournament Loading..."
   };
 }

@@ -58,7 +58,7 @@ export default async function OADPage() {
   const maxEarnings = Math.max(...memberData.map((m: any) => m.totalNumeric));
 
   return (
-    <main className="min-h-screen bg-gentle-charcoal p-6 pb-24">
+    <main className="min-h-screen bg-black p-6 pb-24">
       <header className="mb-10 pt-4">
         <h1 className="text-white text-3xl font-black tracking-tight italic uppercase">
           One <span className="text-gentle-gold">&</span> Done

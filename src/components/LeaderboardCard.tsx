@@ -1,4 +1,5 @@
 import { ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
+import { getOwnerGlow } from '@/lib/utils';
 
 interface LeaderboardCardProps {
   name: string;
@@ -9,8 +10,9 @@ interface LeaderboardCardProps {
 }
 
 export default function LeaderboardCard({ name, total, rank, change, colorClass }: LeaderboardCardProps) {
+  const glowClasses = getOwnerGlow(name);
   return (
-    <div className={`rounded-t-2xl ${colorClass} p-4 pb-2 transition-all duration-300`}>
+    <div className={`w-full rounded-2xl overflow-hidden bg-white/5 border shadow-lg transition-all duration-500 ${glowClasses}`}>
       <div className="flex justify-between items-center">
         {/* Left Side: Rank, Arrow, and Name */}
         <div className="flex items-center gap-3">
