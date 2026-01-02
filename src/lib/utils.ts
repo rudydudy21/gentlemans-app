@@ -34,21 +34,21 @@ export const getOwnerColor = (rawName: string) => {
 };
 
 export const getOwnerBarColor = (rawName: string) => {
-  if (!rawName) return "bg-gentle-gold";
+  if (!rawName) return { core: "bg-white/20", oad: "bg-white/5" };
   const cleanName = rawName.replace(/\s*OAD\s*/i, "").trim();
 
-  const barMap: Record<string, string> = {
-    "Cam":   "bg-purple-500 shadow-[0_0_12px_rgba(168,85,247,0.4)]",
-    "Drew":  "bg-orange-500 shadow-[0_0_12px_rgba(249,115,22,0.4)]",
-    "Jon":   "bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.4)]",
-    "Pete":  "bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.4)]",
-    "Ross":  "bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.4)]",
-    "Ryan":  "bg-gentle-gold shadow-[0_0_12px_rgba(234,179,8,0.4)]",
-    "Scott": "bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.4)]",
-    "Tyler": "bg-yellow-500 shadow-[0_0_12px_rgba(234,179,8,0.4)]",
+  const colorMap: Record<string, { core: string; oad: string }> = {
+    "Cam":   { core: "bg-purple-500",  oad: "bg-purple-500/20" },
+    "Drew":  { core: "bg-orange-500",  oad: "bg-orange-500/20" },
+    "Jon":   { core: "bg-emerald-500", oad: "bg-emerald-500/20" },
+    "Pete":  { core: "bg-red-600",     oad: "bg-red-600/20" },
+    "Ross":  { core: "bg-blue-600",    oad: "bg-blue-600/20" },
+    "Ryan":  { core: "bg-gentle-gold", oad: "bg-gentle-gold/20" },
+    "Scott": { core: "bg-cyan-400",    oad: "bg-cyan-400/20" },
+    "Tyler": { core: "bg-yellow-500",  oad: "bg-yellow-500/20" },
   };
 
-  return barMap[cleanName] || "bg-gentle-gold";
+  return colorMap[cleanName] || { core: "bg-white/20", oad: "bg-white/5" };
 };
 
 export const getOwnerVerticalGlow = (rawName: string) => {

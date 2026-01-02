@@ -20,7 +20,7 @@ export default function RosterCard({ name, totalEarnings, golfers }: RosterCardP
       {/* HEADER */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full grid grid-cols-[1fr_auto] gap-6 p-6 sm:p-7 text-left items-center"
+        className="w-full grid grid-cols-[1fr_auto] gap-6 p-6 sm:p-7 text-left items-center hover:bg-white/[0.02]"
       >
         <div>
           <div className="flex items-center gap-3 flex-wrap">

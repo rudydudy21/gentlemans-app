@@ -16,19 +16,19 @@ export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxT
   const [isOpen, setIsOpen] = useState(false);
   
   const glowClasses = getOwnerGlow(name);
-  const barColorClasses = getOwnerBarColor(name);
+  const barColors = getOwnerBarColor(name);
 
   const totalNumeric = coreVal + oadVal;
   const barScalePercent = maxTotal > 0 ? (totalNumeric / maxTotal) * 100 : 0;
   const coreWidth = totalNumeric > 0 ? (coreVal / totalNumeric) * 100 : 0;
 
   return (
-    <div className={`w-full rounded-2xl bg-white/5 border transition-all duration-500 mb-6 relative overflow-visible shadow-lg ${glowClasses} ${isOpen ? 'bg-white/[0.08]' : ''}`}>
+    <div className={`w-full rounded-2xl bg-white/5 border transition-all duration-500 mb-4 relative overflow-visible shadow-lg ${glowClasses} ${isOpen ? 'bg-white/[0.08]' : ''}`}>
       
       {/* HEADER AREA */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-6 sm:p-8 text-left hover:bg-white/[0.02] group"
+        className="w-full p-6 sm:p-6 text-left hover:bg-white/[0.02] group"
       >
         {/* ROW 1: Member Name and Total Earnings aligned */}
         <div className="flex justify-between items-center mb-3">
@@ -58,24 +58,34 @@ export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxT
               style={{ width: `${barScalePercent}%` }} 
               className="h-5 flex rounded-md overflow-hidden border border-black/40 shadow-inner bg-white/5 transition-all duration-1000"
             >
-               <div 
-                 className={`h-full flex items-center px-2 transition-all duration-700 ${barColorClasses}`} 
-                 style={{ width: `${coreWidth}%` }}
-               >
-                 {coreWidth > 15 && <span className="text-[8px] font-black italic text-black uppercase tracking-tighter">Core</span>}
-               </div>
-               <div className="h-full bg-white/5 flex items-center justify-end px-2" style={{ width: `${100 - coreWidth}%` }}>
-                 {(100 - coreWidth) > 15 && <span className="text-[8px] font-black italic text-white/40 uppercase tracking-tighter">OAD</span>}
-               </div>
+              {/* CORE SECTION */}
+              <div 
+                className={`h-full flex items-center px-2 transition-all duration-700 ${barColors.core}`} 
+                style={{ width: `${coreWidth}%` }}
+              >
+                {coreWidth > 15 && (
+                  <span className="text-[8px] font-black italic text-black uppercase tracking-tighter">Core</span>
+                )}
+              </div>
+
+              {/* OAD SECTION - Now using the tinted team color */}
+              <div 
+                className={`h-full flex items-center justify-end px-2 transition-all duration-700 ${barColors.oad}`} 
+                style={{ width: `${100 - coreWidth}%` }}
+              >
+                {(100 - coreWidth) > 15 && (
+                  <span className="text-[8px] font-black italic text-white/50 uppercase tracking-tighter">OAD</span>
+                )}
+              </div>
             </div>
           </div>
 
           {/* Sub-values with labels "Core:" and "OAD:" */}
           <div className="flex justify-between mt-2 px-0.5 text-[9px] font-mono font-bold italic tracking-tight uppercase">
-             <span className="text-gentle-gold opacity-90">
-               <span className="opacity-50 mr-1">Core:</span>${coreVal.toLocaleString()}
+             <span className="text-white opacity-90">
+               <span className="opacity-90 mr-1">Core:</span>${coreVal.toLocaleString()}
              </span>
-             <span className="text-white/20">
+             <span className="text-white/90">
                <span className="mr-1">OAD:</span>${oadVal.toLocaleString()}
              </span>
           </div>
