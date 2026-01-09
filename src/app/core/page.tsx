@@ -55,7 +55,7 @@ export default async function CorePage() {
         <h1 className="text-white text-3xl font-black tracking-tight italic uppercase">
           Core <span className="text-gentle-gold">3</span> Roster
         </h1>
-        <p className="text-gentle-stone text-[10px] uppercase tracking-[0.3em] mt-2 font-black">
+        <p className="text-gentle-stone text-[10px] uppercase tracking-[0.3em] mt-2 ml-1 font-black">
           Season-Long Stable
         </p>
       </header>

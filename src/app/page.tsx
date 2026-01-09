@@ -46,7 +46,7 @@ export default async function Home() {
           <h1 className="text-white text-3xl font-black tracking-tight italic uppercase leading-none">
             GENTLEMAN'S <span className="text-gentle-gold">CLASSIC</span>
           </h1>
-          <p className="text-gentle-stone text-xs uppercase tracking-[0.2em] mt-1 font-bold">
+          <p className="text-gentle-stone text-xs uppercase tracking-[0.2em] mt-1 ml-1 font-bold">
             2026 Season Standings
           </p>
         </div>

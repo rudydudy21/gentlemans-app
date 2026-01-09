@@ -49,9 +49,12 @@ export default function OADCard({
               {name}
             </h3>
           </div>
-          <p className="text-gentle-gold text-xs font-bold uppercase tracking-widest mt-1 italic">
-            Current Pick: {currentPick || 'No Pick'}
-          </p>
+            <p className="text-[10px] text-gentle-stone uppercase font-bold tracking-widest">
+              Current Pick:
+              <span className="block text-white text-sm mt-1 uppercase normal-case">
+                {currentPick || 'No Pick'}
+              </span>
+            </p>
         </div>
 
         <div className="flex items-center gap-6">

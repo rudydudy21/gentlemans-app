@@ -63,7 +63,7 @@ export default async function OADPage() {
         <h1 className="text-white text-3xl font-black tracking-tight italic uppercase">
           One <span className="text-gentle-gold">&</span> Done
         </h1>
-        <p className="text-gentle-stone text-xs uppercase tracking-[0.2em] mt-1 font-bold">
+        <p className="text-gentle-stone text-xs uppercase tracking-[0.2em] mt-1 ml-1 font-bold">
           Weekly Picks & History
         </p>
       </header>
