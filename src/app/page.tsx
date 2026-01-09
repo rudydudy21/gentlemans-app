@@ -47,7 +47,7 @@ export default async function Home() {
             GENTLEMAN'S <span className="text-gentle-gold">CLASSIC</span>
           </h1>
           <p className="text-gentle-stone text-xs uppercase tracking-[0.2em] mt-1 font-bold">
-            2025 Season Standings
+            2026 Season Standings
           </p>
         </div>
 

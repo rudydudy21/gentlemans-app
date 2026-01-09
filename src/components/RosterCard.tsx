@@ -1,16 +1,17 @@
 'use client';
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Users } from 'lucide-react';
+import { ChevronDown, ChevronUp, RefreshCcw } from 'lucide-react'; // Changed icon
 import { getOwnerGlow } from '@/lib/utils';
 
 interface RosterCardProps {
   name: string;
   totalEarnings: string;
   golfers: { name: string; earnings: string }[];
+  changeCount: number; // NEW PROP
   isLeader?: boolean;
 }
 
-export default function RosterCard({ name, totalEarnings, golfers }: RosterCardProps) {
+export default function RosterCard({ name, totalEarnings, golfers, changeCount }: RosterCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   const glowClasses = getOwnerGlow(name);
 
@@ -26,8 +27,10 @@ export default function RosterCard({ name, totalEarnings, golfers }: RosterCardP
           <div className="flex items-center gap-3 flex-wrap">
             <h3 className="text-white font-bold text-xl uppercase tracking-tight">{name}</h3>
           </div>
-          <p className="text-gentle-gold text-[10px] font-bold uppercase tracking-widest mt-1 flex items-center gap-1 italic opacity-80">
-            <Users size={12} /> Roster Locked
+          {/* UPDATED: Displays the count of changes */}
+          <p className="text-gentle-gold text-[10px] font-bold uppercase tracking-widest mt-1 flex items-center gap-2 italic opacity-80">
+            <RefreshCcw size={10} className={changeCount > 0 ? "text-gentle-gold" : "text-gentle-stone"} /> 
+            {changeCount === 0 ? 'Roster Changes: 0' : `${changeCount} Roster ${changeCount === 1 ? 'Change' : 'Changes'}`}
           </p>
         </div>
 

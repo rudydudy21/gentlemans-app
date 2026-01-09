@@ -8,51 +8,66 @@ export default async function CorePage() {
   if (!rawData) return <div className="p-10 text-white text-center">Data Unavailable</div>;
 
   const allData = transformSheetData(rawData);
-  // Using the core roster data from your transformation logic
+  // This contains EVERY entry in the Core Log sheet
   const coreRows = allData.core || [];
 
   if (coreRows.length === 0) {
     return <div className="p-10 text-white text-center">No Core 3 data found.</div>;
   }
 
-  // Map the raw sheet rows to the RosterCard format
-  const memberRosters = coreRows.map((row: any) => {
-    // Assuming row is an array based on standard sheet fetching:
-    // [0]Member, [1]G1, [2]G2, [3]G3, [4]Start, [5]End, [6]Active, [7]G1$, [8]G2$, [9]G3$, [10]Total
+  // 1. Create a Frequency Map to count how many times each owner appears
+  // This represents their history of roster submissions
+  const submissionCounts: Record<string, number> = {};
+  coreRows.forEach((row: any) => {
+    const ownerName = row[0];
+    submissionCounts[ownerName] = (submissionCounts[ownerName] || 0) + 1;
+  });
+
+  // 2. Identify "Active" rosters only (to display the card)
+  // We assume the LATEST entry for each member is the one to show
+  const uniqueMemberMap = new Map();
+  coreRows.forEach((row: any) => {
+    uniqueMemberMap.set(row[0], row); // Overwrites previous entries, keeping only the last one
+  });
+
+  const memberRosters = Array.from(uniqueMemberMap.values()).map((row: any) => {
+    const ownerName = row[0];
+    const totalEntries = submissionCounts[ownerName] || 1;
+    
     return {
-      name: row[0],
+      name: ownerName,
       totalEarnings: row[10] || "$0",
+      changeCount: Math.max(0, totalEntries - 1), // 1 entry = 0 changes, 2 entries = 1 change
       golfers: [
         { name: row[1], earnings: row[7] || "$0" },
         { name: row[2], earnings: row[8] || "$0" },
         { name: row[3], earnings: row[9] || "$0" },
       ],
-      // Helper for the leader highlight (strip $ and , to compare numbers)
       numericTotal: Number(row[10]?.replace(/[^0-9.-]+/g, "")) || 0
     };
   });
 
-  // Calculate the leader
   const maxEarnings = Math.max(...memberRosters.map((m: any) => m.numericTotal));
 
   return (
     <main className="min-h-screen bg-black p-4 sm:p-8 pb-24">
-      <header className="mb-10 pt-4">
+      <header className="mb-10 pt-4 px-2">
         <h1 className="text-white text-3xl font-black tracking-tight italic uppercase">
           Core <span className="text-gentle-gold">3</span> Roster
         </h1>
-        <p className="text-gentle-stone text-xs uppercase tracking-[0.25em] mt-1 font-bold">
+        <p className="text-gentle-stone text-[10px] uppercase tracking-[0.3em] mt-2 font-black">
           Season-Long Stable
         </p>
       </header>
 
-      <div className="space-y-4">
+      <div className="space-y-6 max-w-5xl mx-auto overflow-visible">
         {memberRosters.map((roster: any) => (
           <RosterCard 
             key={roster.name}
             name={roster.name}
             totalEarnings={roster.totalEarnings}
             golfers={roster.golfers}
+            changeCount={roster.changeCount} // Passing the new count
             isLeader={roster.numericTotal === maxEarnings && maxEarnings > 0}
           />
         ))}
