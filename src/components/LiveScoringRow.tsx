@@ -42,7 +42,7 @@ export default function LiveScoringRow({ data }: Props) {
       {/* LAYER 2: OWNER & STATS */}
       <div className="flex items-center justify-between">
         {/* Owner - Indented under name */}
-        <span className="text-white/40 text-[13px] uppercase font-bold tracking-widest italic ml-8">
+        <span className="text-white/40 text-[12px] uppercase font-bold tracking-widest italic ml-8">
           {owner}
         </span>
 
@@ -50,26 +50,26 @@ export default function LiveScoringRow({ data }: Props) {
         <div className="flex items-center gap-6 shrink-0">
           {/* TOTAL */}
           <div className="flex flex-col items-center w-[40px]">
-            <span className="text-[7px] text-white/20 uppercase font-black mb-1 tracking-tighter">Total</span>
-            <span className={`font-black italic text-[13px] sm:text-base leading-none ${score?.toString().includes('-') ? 'text-red-500' : 'text-white'}`}>
+            <span className="text-[8px] text-white/20 uppercase font-black mb-1 tracking-tighter">Total</span>
+            <span className={`font-black italic text-[12px] sm:text-base leading-none ${score?.toString().includes('-') ? 'text-red-500' : 'text-white'}`}>
               {score ?? '-'}
             </span>
           </div>
 
           {/* TODAY */}
           <div className="flex flex-col items-center w-[40px]">
-            <span className="text-[7px] text-white/20 uppercase font-black mb-1 tracking-tighter">Today</span>
-            <span className="text-white/60 font-black italic text-[13px] sm:text-base leading-none">
+            <span className="text-[8px] text-white/20 uppercase font-black mb-1 tracking-tighter">Today</span>
+            <span className="text-white/60 font-black italic text-[12px] sm:text-base leading-none">
               {today || '-'}
             </span>
           </div>
 
           {/* THRU / PAYOUT */}
           <div className="flex flex-col items-center min-w-[70px]">
-            <span className="text-[7px] text-white/20 uppercase font-black mb-1 tracking-tighter">
+            <span className="text-[8px] text-white/20 uppercase font-black mb-1 tracking-tighter">
               {isFinal ? 'Payout' : 'Thru'}
             </span>
-            <span className="text-gentle-gold font-black italic text-[11px] sm:text-sm leading-none">
+            <span className="text-gentle-gold font-black italic text-[12px] sm:text-sm leading-none">
               {isFinal ? earnings : (thru || '-')}
             </span>
           </div>
