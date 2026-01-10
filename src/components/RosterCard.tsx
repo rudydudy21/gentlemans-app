@@ -25,7 +25,7 @@ export default function RosterCard({ name, totalEarnings, golfers, changeCount }
       >
         <div>
           <div className="flex items-center gap-3 flex-wrap">
-            <h3 className="text-white font-bold text-xl uppercase tracking-tight">{name}</h3>
+            <h3 className="font-mono font-bold leading-none tabular-nums uppercase text-white text-xl sm:text-2xl">{name}</h3>
           </div>
           {/* UPDATED: Displays the count of changes */}
           <p className="text-gentle-gold text-[10px] font-bold uppercase tracking-widest mt-1 flex items-center gap-2 italic opacity-80">

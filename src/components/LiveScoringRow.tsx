@@ -36,7 +36,7 @@ export default function LiveScoringRow({ data }: Props) {
     <div className="flex items-center gap-2 mb-0.5 ml-2"> 
        {/* Added ml-2 to give the glowing bar some breathing room */}
        <span className="text-gentle-gold font-black text-[12px] shrink-0">{pos ?? '-'}</span>
-       <span className="text-white font-black uppercase text-[15px] leading-none">{player}</span>
+       <span className="text-white font-mono font-bold uppercase text-[15px] leading-none">{player}</span>
     </div>
 
       {/* LAYER 2: OWNER & STATS */}

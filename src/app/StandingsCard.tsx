@@ -36,7 +36,7 @@ export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxT
             <span className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-[10px] font-black italic text-gentle-gold border border-white/10 shrink-0">
               {rank}
             </span>
-            <h3 className="text-white font-bold text-xl uppercase tracking-tight">
+            <h3 className="font-mono font-bold leading-none tabular-nums uppercase text-white text-xl sm:text-2xl">
               {name}
             </h3>
           </div>

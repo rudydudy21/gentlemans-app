@@ -27,7 +27,7 @@ export default function LeaderboardCard({ name, total, rank, change, colorClass 
             {change === 'none' && <Minus size={16} className="text-gentle-stone/50" />}
             
             {/* OAD Style Font: Bold, Uppercase */}
-            <h3 className="text-white text-xl font-black uppercase tracking-tight">
+            <h3 className="font-mono font-bold leading-none tabular-nums text-white text-xl sm:text-2xl">
               {name}
             </h3>
           </div>
