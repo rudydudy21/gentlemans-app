@@ -30,7 +30,7 @@ export default function RosterCard({ name, totalEarnings, golfers, changeCount }
           {/* UPDATED: Displays the count of changes */}
           <p className="text-gentle-gold text-[10px] font-bold uppercase tracking-widest mt-1 flex items-center gap-2 italic opacity-80">
             <RefreshCcw size={10} className={changeCount > 0 ? "text-gentle-gold" : "text-gentle-stone"} /> 
-            {changeCount === 0 ? 'Roster Changes: 0' : `${changeCount} Roster ${changeCount === 1 ? 'Change' : 'Changes'}`}
+            {`Roster Changes: `}{changeCount}
           </p>
         </div>
 
