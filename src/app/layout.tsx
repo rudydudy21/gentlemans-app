@@ -24,7 +24,8 @@ export const metadata: Metadata = {
   title: "Gentleman's Classic",
   description: "Live scoring and OAD tracking",
   icons: {
-    apple: "/icon.png", // Points to your image in the 'public' folder
+    apple: "/apple-touch-icon.png",
+    icon: "/icon.png"
   },
   appleWebApp: {
     capable: true,
