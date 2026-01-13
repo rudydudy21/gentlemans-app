@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Syne, Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next"; // Added Viewport here
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BottomNav from "@/components/BottomNav";
 import { Analytics } from '@vercel/analytics/react';
@@ -14,28 +14,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const syne = Syne({
-  weight: "600",
-  variable: "--font-syne",
-  subsets: ["latin"],
-});
+// This makes the iOS status bar black and allows content to flow behind it
+export const viewport: Viewport = {
+  themeColor: 'black',
+};
 
+// 2. Metadata handles the Apple Web App settings
 export const metadata: Metadata = {
   title: "Gentleman's Classic",
   description: "Live scoring and OAD tracking",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: "Gentleman's Classic",
+  },
   openGraph: {
-    title: "Golf Pool Live",
+    title: "Gentleman's Classic Tracker",
     description: "Track the leaderboard and OAD picks in real-time.",
-    url: "https://gentlemans-app.vercel.app", // Replace with your actual URL
+    url: "https://gentlemans-app.vercel.app",
     siteName: "Gentleman's Classic Tracker",
-    images: [
-      {
-        url: "/SharingPic.png", // This points to a file in your 'public' folder
-        width: 1200,
-        height: 630,
-        alt: "Gentleman's Classic Tracker",
-      },
-    ],
+    images: [{ url: "/SharingPic.png", width: 1200, height: 630, alt: "Gentleman's Classic Tracker" }],
     locale: "en_US",
     type: "website",
   },
@@ -55,9 +53,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} antialiased bg-black`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
       >
-        <main className="pb-24"> {/* Added padding so BottomNav doesn't cover content */}
+        <main className="pb-24">
           {children}
         </main>
         <BottomNav />
@@ -65,4 +63,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
