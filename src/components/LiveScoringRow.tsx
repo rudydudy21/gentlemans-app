@@ -26,23 +26,23 @@ export default function LiveScoringRow({ data }: Props) {
   return (
   <div className="flex flex-col px-4 py-3 border-b border-white/5 last:border-0 bg-transparent relative overflow-hidden">
     
-    {/* NEW: The Right-Side Spread Glow */}
+    {/* NEW: The Spread Glow */}
     <div className={`absolute left-0 top-2 bottom-3 w-32 bg-gradient-to-r ${spread} to-transparent opacity-40 pointer-events-none`} />
-
-    {/* The Glowing Vertical Edge */}
+    
+    {/* The Glowing Vertical Edges */}
     <div className={`absolute left-0 top-2 bottom-3 w-[3px] rounded-r-full z-10 ${bar}`} />
 
     {/* ... Rest of your Row Content ... */}
     <div className="flex items-center gap-2 mb-0.5 ml-2"> 
        {/* Added ml-2 to give the glowing bar some breathing room */}
        <span className="text-gentle-gold font-black text-[12px] shrink-0">{pos ?? '-'}</span>
-       <span className="text-white font-mono font-bold uppercase text-[15px] leading-none">{player}</span>
+       <span className="text-white tracking-wider font-mono font-bold uppercase text-[15px] leading-none">{player}</span>
     </div>
 
       {/* LAYER 2: OWNER & STATS */}
       <div className="flex items-center justify-between">
         {/* Owner - Indented under name */}
-        <span className="text-white/40 text-[12px] uppercase font-bold tracking-widest italic ml-8">
+        <span className="text-white/40 text-[12px] uppercase font-bold tracking-widest italic ml-6">
           {owner}
         </span>
 
