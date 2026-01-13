@@ -23,6 +23,9 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Gentleman's Classic",
   description: "Live scoring and OAD tracking",
+  icons: {
+    apple: "/icon.png", // Points to your image in the 'public' folder
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
