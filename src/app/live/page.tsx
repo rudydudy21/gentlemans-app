@@ -27,6 +27,32 @@ export default async function LivePage() {
     thru: row[5],
     earnings: row[6]
   }));
+  
+// 2. Sort them by Position (Lower number = Better rank)
+  const sortedPlayers = [...players].sort((a, b) => {
+    const parsePos = (val: any) => {
+      // Convert to string and clean: remove 'T' (for Ties), spaces, etc.
+      const s = String(val || '').toUpperCase().replace('T', '').trim();
+      
+      // If they don't have a position (Empty, -, CUT, WD), send to bottom
+      if (s === '-' || s === '' || isNaN(Number(s))) return 999;
+      
+      return parseInt(s, 10);
+    };
+
+    const posA = parsePos(a.pos);
+    const posB = parsePos(b.pos);
+
+    // If positions are the same (e.g., both are T10), 
+    // we sub-sort by score just in case.
+    if (posA === posB) {
+      const scoreA = parseInt(String(a.score).replace('+', '').replace('E', '0')) || 0;
+      const scoreB = parseInt(String(b.score).replace('+', '').replace('E', '0')) || 0;
+      return scoreA - scoreB;
+    }
+
+    return posA - posB;
+  });
 
   return (
     <main className="min-h-screen bg-black p-4 pb-24">
@@ -52,7 +78,7 @@ export default async function LivePage() {
       <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
         {/* Header — use same responsive grid as the rows so columns align perfectly */}
         <div className="divide-y divide-white/5">
-          {players.map((p:any, idx:any) => (
+          {sortedPlayers.map((p:any, idx:any) => (
             <LiveScoringRow key={idx} data={p} />
           ))}
         </div>

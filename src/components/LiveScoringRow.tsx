@@ -69,7 +69,7 @@ export default function LiveScoringRow({ data }: Props) {
             <span className="text-[8px] text-white/20 uppercase font-black mb-1 tracking-tighter">
               {isFinal ? 'Payout' : 'Thru'}
             </span>
-            <span className="text-gentle-gold font-black italic text-[12px] sm:text-sm leading-none">
+            <span className="text-gentle-gold font-black italic text-[12px] sm:text-base leading-none">
               {isFinal ? earnings : (thru || '-')}
             </span>
           </div>
