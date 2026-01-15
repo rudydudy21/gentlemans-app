@@ -19,6 +19,20 @@
   --background: #ffffff;
   --foreground: #171717;
 }
+html, body {
+  overflow-x: hidden;
+  /* Use svh (Small Viewport Height) to ignore the shifting Safari address bar */
+  height: 100svh; 
+  overscroll-behavior-y: none;
+  background-color: black;
+}
+
+/* Ensure the main content can scroll while the body stays locked */
+main {
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+}
 
 @theme inline {
   --color-background: var(--background);

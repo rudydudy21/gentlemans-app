@@ -1,7 +1,9 @@
 import { getLeagueData, transformSheetData } from '@/lib/sheets';
 import LiveScoringRow from '@/components/LiveScoringRow';
+import RefreshHandler from '@/components/RefreshHandler';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0; //Kills cache
 
 export default async function LivePage() {
   const rawData = await getLeagueData();
@@ -61,6 +63,7 @@ export default async function LivePage() {
           <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
           <h1 className="text-white text-2xl font-black italic uppercase">Live <span className="text-gentle-gold">Feed</span></h1>
         </div>
+        <RefreshHandler />
       </header>
       
       {/* TOURNAMENT HEADER */}
