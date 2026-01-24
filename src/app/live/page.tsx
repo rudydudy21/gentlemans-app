@@ -57,35 +57,40 @@ export default async function LivePage() {
   });
 
   return (
-    <main className="min-h-screen bg-black p-4 pb-24">
-      <header className="pt-4 flex justify-between items-center px-2">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-          <h1 className="text-white text-2xl font-black italic uppercase">Live <span className="text-gentle-gold">Feed</span></h1>
+    <main className="min-h-screen bg-black flex flex-col">
+      {/* NEW WRAPPER START */}
+      <div className="flex-grow p-4 pb-80"> 
+        
+        <header className="pt-4 flex justify-between items-center px-2">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+            <h1 className="text-white text-2xl font-black italic uppercase">Live <span className="text-gentle-gold">Feed</span></h1>
+          </div>
+          <RefreshHandler />
+        </header>
+        
+        {/* TOURNAMENT HEADER */}
+        <div className="px-2 mb-3 mt-2">
+          <div className="flex flex-col border-l-2 border-gentle-gold pl-3">
+            <span className="text-gentle-stone text-[10px] uppercase tracking-[0.4em] font-black">
+              Currently Playing
+            </span>
+            <h2 className="text-white text-xl sm:text-2xl font-black uppercase italic tracking-tighter leading-none mt-1">
+              {tournamentName || "Tournament Loading..."}
+            </h2>
+          </div>
         </div>
-        <RefreshHandler />
-      </header>
-      
-      {/* TOURNAMENT HEADER */}
-      <div className="px-2 mb-3 mt-2">
-        <div className="flex flex-col border-l-2 border-gentle-gold pl-3">
-          <span className="text-gentle-stone text-[10px] uppercase tracking-[0.4em] font-black">
-            Currently Playing
-          </span>
-          <h2 className="text-white text-xl sm:text-2xl font-black uppercase italic tracking-tighter leading-none mt-1">
-            {tournamentName || "Tournament Loading..."}
-          </h2>
-        </div>
-      </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
-        {/* Header — use same responsive grid as the rows so columns align perfectly */}
-        <div className="divide-y divide-white/5">
-          {sortedPlayers.map((p:any, idx:any) => (
-            <LiveScoringRow key={idx} data={p} />
-          ))}
+        <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+          <div className="divide-y divide-white/5">
+            {sortedPlayers.map((p:any, idx:any) => (
+              <LiveScoringRow key={`${p.player}-${idx}`} data={p} />
+            ))}
+          </div>
         </div>
-      </div>
+
+      </div> 
+      {/* NEW WRAPPER END */}
     </main>
   );
 }
