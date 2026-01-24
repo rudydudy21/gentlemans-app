@@ -24,7 +24,7 @@ export default function LiveScoringRow({ data }: Props) {
   const {bar, spread} = getOwnerVerticalGlow(data.owner);
 
   return (
-  <div className="flex flex-col px-4 py-3 border-b border-white/5 last:border-0 bg-transparent relative overflow-hidden">
+  <div className="flex flex-col px-4 py-2 border-b border-white/5 last:border-0 bg-transparent relative overflow-hidden">
     
     {/* NEW: The Spread Glow */}
     <div className={`absolute left-0 top-2 bottom-3 w-32 bg-gradient-to-r ${spread} to-transparent opacity-40 pointer-events-none`} />
@@ -50,7 +50,7 @@ export default function LiveScoringRow({ data }: Props) {
         <div className="flex items-center gap-6 shrink-0">
           {/* TOTAL */}
           <div className="flex flex-col items-center w-[40px]">
-            <span className="text-[8px] text-white/20 uppercase font-black mb-1 tracking-tighter">Total</span>
+            <span className="text-[9px] text-white/20 uppercase font-black tracking-tighter">Total</span>
             <span className={`font-black italic text-[12px] sm:text-base leading-none ${score?.toString().includes('-') ? 'text-red-500' : 'text-white'}`}>
               {score ?? '-'}
             </span>
@@ -58,7 +58,7 @@ export default function LiveScoringRow({ data }: Props) {
 
           {/* TODAY */}
           <div className="flex flex-col items-center w-[40px]">
-            <span className="text-[8px] text-white/20 uppercase font-black mb-1 tracking-tighter">Today</span>
+            <span className="text-[9px] text-white/20 uppercase font-black tracking-tighter">Today</span>
             <span className="text-white/60 font-black italic text-[12px] sm:text-base leading-none">
               {today || '-'}
             </span>
@@ -66,7 +66,7 @@ export default function LiveScoringRow({ data }: Props) {
 
           {/* THRU / PAYOUT */}
           <div className="flex flex-col items-center min-w-[70px]">
-            <span className="text-[8px] text-white/20 uppercase font-black mb-1 tracking-tighter">
+            <span className="text-[9px] text-white/20 uppercase font-black tracking-tighter">
               {isFinal ? 'Payout' : 'Thru'}
             </span>
             <span className="text-gentle-gold font-black italic text-[12px] sm:text-base leading-none">
