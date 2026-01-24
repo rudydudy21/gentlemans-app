@@ -86,7 +86,7 @@ export default function OADCard({
             >
               {/* Left Side: Stacked Info */}
               <div className="flex flex-col min-w-0">
-                <span className="text-white font-bold text-sm uppercase italic leading-tight mb-1">
+                <span className="text-gentle-gold font-bold text-sm uppercase italic leading-tight mb-1">
                   {week.golfer}
                 </span>
                 <span className="text-gentle-stone text-[10px] uppercase tracking-wider truncate">
