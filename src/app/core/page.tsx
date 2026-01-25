@@ -15,35 +15,53 @@ export default async function CorePage() {
     return <div className="p-10 text-white text-center">No Core 3 data found.</div>;
   }
 
-  // 1. Create a Frequency Map to count how many times each owner appears
-  // This represents their history of roster submissions
-  const submissionCounts: Record<string, number> = {};
+// 1. First pass: Aggregate total earnings and golfer history
+const aggregatedData = new Map();
+  
   coreRows.forEach((row: any) => {
     const ownerName = row[0];
-    submissionCounts[ownerName] = (submissionCounts[ownerName] || 0) + 1;
-  });
-
-  // 2. Identify "Active" rosters only (to display the card)
-  // We assume the LATEST entry for each member is the one to show
-  const uniqueMemberMap = new Map();
-  coreRows.forEach((row: any) => {
-    uniqueMemberMap.set(row[0], row); // Overwrites previous entries, keeping only the last one
-  });
-
-  const memberRosters = Array.from(uniqueMemberMap.values()).map((row: any) => {
-    const ownerName = row[0];
-    const totalEntries = submissionCounts[ownerName] || 1;
+    const g1Earnings = Number(row[7]?.replace(/[^0-9.-]+/g, "")) || 0;
+    const g2Earnings = Number(row[8]?.replace(/[^0-9.-]+/g, "")) || 0;
+    const g3Earnings = Number(row[9]?.replace(/[^0-9.-]+/g, "")) || 0;
+    const rowTotal = Number(row[10]?.replace(/[^0-9.-]+/g, "")) || 0;
     
+    if (!aggregatedData.has(ownerName)) {
+      aggregatedData.set(ownerName, {
+        latestRow: row,
+        totalG1: 0,
+        totalG2: 0,
+        totalG3: 0,
+        runningTotal: 0,
+        submissionCount: 0
+      });
+    }
+    
+    const data = aggregatedData.get(ownerName);
+    data.totalG1 += g1Earnings;
+    data.totalG2 += g2Earnings;
+    data.totalG3 += g3Earnings;
+    data.runningTotal += rowTotal;
+    data.submissionCount += 1;
+    data.latestRow = row; // Keep this to get the CURRENT golfer names
+  });
+
+  const memberRosters = Array.from(aggregatedData.values()).map(({ latestRow, totalG1, totalG2, totalG3, runningTotal, submissionCount }) => {
+    const currencyFormat = new Intl.NumberFormat('en-US', { 
+      style: 'currency', 
+      currency: 'USD', 
+      maximumFractionDigits: 0 
+    });
+
     return {
-      name: ownerName,
-      totalEarnings: row[10] || "$0",
-      changeCount: Math.max(0, totalEntries - 1), // 1 entry = 0 changes, 2 entries = 1 change
+      name: latestRow[0],
+      totalEarnings: currencyFormat.format(runningTotal),
+      changeCount: Math.max(0, submissionCount - 1),
       golfers: [
-        { name: row[1], earnings: row[7] || "$0" },
-        { name: row[2], earnings: row[8] || "$0" },
-        { name: row[3], earnings: row[9] || "$0" },
+        { name: latestRow[1], earnings: currencyFormat.format(totalG1) },
+        { name: latestRow[2], earnings: currencyFormat.format(totalG2) },
+        { name: latestRow[3], earnings: currencyFormat.format(totalG3) },
       ],
-      numericTotal: Number(row[10]?.replace(/[^0-9.-]+/g, "")) || 0
+      numericTotal: runningTotal
     };
   });
 
