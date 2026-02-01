@@ -28,10 +28,12 @@ export default async function Home() {
   }
 
   // Helper to turn "$1,234" into 1234
-  const parseCurrency = (val: string) => {
-    if (!val) return 0;
-    return Number(val.replace(/[^0-9.-]+/g, "")) || 0;
-  };
+  const parseCurrency = (val: any) => {
+    if (val === undefined || val === null || val === '') return 0;
+      // Convert to string first to safely use .replace
+      const stringVal = String(val);
+      return Number(stringVal.replace(/[^0-9.-]+/g, "")) || 0;
+    };
 
   // 1. Sort and Prepare Data
   const sortedLeaderboard = [...leaderboard].slice(1).sort((a, b) => {
@@ -66,6 +68,7 @@ export default async function Home() {
         const coreVal = parseCurrency(row[1]);
         const oadVal = parseCurrency(row[2]);
         const totalVal = row[3];
+        const weeklyHistory = row.slice(4, 33).map((val: any) => parseCurrency(val)); //For data chart
 
         return (
           <StandingsCard 
@@ -76,6 +79,7 @@ export default async function Home() {
             coreVal={coreVal}
             oadVal={oadVal}
             maxTotal={maxTotal}
+            weeklyHistory={weeklyHistory} //For data chart
           />
         );
       })}

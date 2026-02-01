@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { getOwnerGlow, getOwnerBarColor } from '@/lib/utils';
+import BarChart from '@/components/BarChart';
 
 interface StandingsCardProps {
   rank: number;
@@ -10,9 +11,10 @@ interface StandingsCardProps {
   coreVal: number;
   oadVal: number;
   maxTotal: number;
+  weeklyHistory: number[];
 }
 
-export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxTotal }: StandingsCardProps) {
+export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxTotal, weeklyHistory }: StandingsCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   
   const glowClasses = getOwnerGlow(name);
@@ -93,20 +95,15 @@ export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxT
       </button>
 
       {/* DETAILS (Expanded view) */}
-      {isOpen && (
-        <div className="bg-black/40 border-t border-white/5 px-6 sm:px-8 pb-6 rounded-b-2xl">
-           <div className="mt-4 space-y-1">
-             <div className="flex justify-between py-2 border-b border-white/5">
-                <span className="text-[10px] uppercase font-black text-gentle-stone tracking-widest italic">Core 3 Performance</span>
-                <span className="text-white font-mono text-sm">${coreVal.toLocaleString()}</span>
-             </div>
-             <div className="flex justify-between py-2 border-b border-white/5 last:border-0">
-                <span className="text-[10px] uppercase font-black text-gentle-stone tracking-widest italic">OAD Selections</span>
-                <span className="text-white font-mono text-sm">${oadVal.toLocaleString()}</span>
-             </div>
-           </div>
-        </div>
-      )}
+        {isOpen && (
+          <div className="bg-black/40 border-t border-white/5 px-6 sm:px-8 pb-6 rounded-b-2xl animate-in fade-in slide-in-from-top-2 duration-300">
+            
+            {/* 📊 NEW: Weekly Performance Chart inside the pop-out */}
+            <div className="py-4">
+              <BarChart history={weeklyHistory} />
+            </div>
+          </div>
+        )}
     </div>
   );
 }
