@@ -100,7 +100,10 @@ export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxT
             
             {/* 📊 NEW: Weekly Performance Chart inside the pop-out */}
             <div className="py-4">
-              <BarChart history={weeklyHistory} />
+              <BarChart 
+              history={weeklyHistory}
+              colorClass={barColors.core}
+            />
             </div>
           </div>
         )}
