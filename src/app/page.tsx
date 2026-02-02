@@ -39,6 +39,16 @@ export default async function Home() {
   const sortedLeaderboard = [...leaderboard].slice(1).sort((a, b) => {
     return parseCurrency(b[3]) - parseCurrency(a[3]);
   });
+  
+  const weeklyAverages = Array.from({ length: 29 }, (_, weekIndex) => {
+  const weeklyTotals = sortedLeaderboard.map(row => {
+    const history = row.slice(4, 33);
+    return parseCurrency(history[weekIndex]);
+  });
+  
+  const sum = weeklyTotals.reduce((a, b) => a + b, 0);
+  return sum / (weeklyTotals.length || 1);
+  });
 
   const maxTotal = Math.max(...sortedLeaderboard.map((row: any) => parseCurrency(row[3])));
   return (
@@ -80,6 +90,7 @@ export default async function Home() {
             oadVal={oadVal}
             maxTotal={maxTotal}
             weeklyHistory={weeklyHistory} //For data chart
+            weeklyAverages={weeklyAverages}
           />
         );
       })}

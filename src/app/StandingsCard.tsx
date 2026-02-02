@@ -12,9 +12,10 @@ interface StandingsCardProps {
   oadVal: number;
   maxTotal: number;
   weeklyHistory: number[];
+  weeklyAverages: number[];
 }
 
-export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxTotal, weeklyHistory }: StandingsCardProps) {
+export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxTotal, weeklyHistory, weeklyAverages }: StandingsCardProps) {
   const [isOpen, setIsOpen] = useState(false);
   
   const glowClasses = getOwnerGlow(name);
@@ -96,14 +97,22 @@ export default function StandingsCard({ rank, name, total, coreVal, oadVal, maxT
 
       {/* DETAILS (Expanded view) */}
         {isOpen && (
-          <div className="bg-black/40 border-t border-white/5 px-6 sm:px-8 pb-6 rounded-b-2xl animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="bg-black/40 border-t border-white/5 px-6 pb-6 rounded-b-2xl">
             
-            {/* 📊 NEW: Weekly Performance Chart inside the pop-out */}
-            <div className="py-4">
-              <BarChart 
-              history={weeklyHistory}
-              colorClass={barColors.core}
-            />
+            {/* Title and Chart Container */}
+            <div className="pt-5 pb-4">
+                <div className="flex justify-between items-end mb-2">
+                  <p className="text-[10px] uppercase tracking-widest text-gentle-stone font-black italic">
+                    Weekly Performance
+                  </p>
+                  <span className="text-[9px] text-gentle-stone/40 font-mono tracking-tighter">WK 1-29</span>
+                </div>
+
+                <BarChart 
+                  history={weeklyHistory} 
+                  averages={weeklyAverages} 
+                  colorClass={barColors.core} 
+                />
             </div>
           </div>
         )}
