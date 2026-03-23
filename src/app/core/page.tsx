@@ -1,5 +1,5 @@
 import { getLeagueData, transformSheetData } from '@/lib/sheets';
-import RosterCard from '@/components/RosterCard';
+import CoreClient from './CoreClient'; 
 
 export const dynamic = 'force-dynamic';
 
@@ -8,15 +8,11 @@ export default async function CorePage() {
   if (!rawData) return <div className="p-10 text-white text-center">Data Unavailable</div>;
 
   const allData = transformSheetData(rawData);
-  // This contains EVERY entry in the Core Log sheet
   const coreRows = allData.core || [];
+  const individualPlayerData = allData.individualPlayers || []; 
 
-  if (coreRows.length === 0) {
-    return <div className="p-10 text-white text-center">No Core 3 data found.</div>;
-  }
-
-// 1. First pass: Aggregate total earnings and golfer history
-const aggregatedData = new Map();
+  // --- AGGREGATION LOGIC (This was missing!) ---
+  const aggregatedData = new Map();
   
   coreRows.forEach((row: any) => {
     const ownerName = row[0];
@@ -42,14 +38,12 @@ const aggregatedData = new Map();
     data.totalG3 += g3Earnings;
     data.runningTotal += rowTotal;
     data.submissionCount += 1;
-    data.latestRow = row; // Keep this to get the CURRENT golfer names
+    data.latestRow = row; 
   });
 
   const memberRosters = Array.from(aggregatedData.values()).map(({ latestRow, totalG1, totalG2, totalG3, runningTotal, submissionCount }) => {
     const currencyFormat = new Intl.NumberFormat('en-US', { 
-      style: 'currency', 
-      currency: 'USD', 
-      maximumFractionDigits: 0 
+      style: 'currency', currency: 'USD', maximumFractionDigits: 0 
     });
 
     return {
@@ -65,7 +59,10 @@ const aggregatedData = new Map();
     };
   });
 
-  const maxEarnings = Math.max(...memberRosters.map((m: any) => m.numericTotal));
+  // Now memberRosters is defined, so we can calculate this safely
+  const maxEarnings = memberRosters.length > 0 
+    ? Math.max(...memberRosters.map((m: any) => m.numericTotal)) 
+    : 0;
 
   return (
     <main className="min-h-screen bg-black p-4 sm:p-8 pb-40">
@@ -77,19 +74,12 @@ const aggregatedData = new Map();
           Season-Long Stable
         </p>
       </header>
-
-      <div className="space-y-6 max-w-5xl mx-auto overflow-visible">
-        {memberRosters.map((roster: any) => (
-          <RosterCard 
-            key={roster.name}
-            name={roster.name}
-            totalEarnings={roster.totalEarnings}
-            golfers={roster.golfers}
-            changeCount={roster.changeCount} // Passing the new count
-            isLeader={roster.numericTotal === maxEarnings && maxEarnings > 0}
-          />
-        ))}
-      </div>
+      
+      <CoreClient 
+        memberRosters={memberRosters} 
+        individualPlayerData={individualPlayerData} 
+        maxEarnings={maxEarnings} 
+      />
     </main>
   );
 }
