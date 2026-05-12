@@ -57,7 +57,7 @@ export default async function CorePage() {
       ],
       numericTotal: runningTotal
     };
-  });
+  }).sort((a: any, b: any) => b.numericTotal - a.numericTotal);
 
   // Now memberRosters is defined, so we can calculate this safely
   const maxEarnings = memberRosters.length > 0 
