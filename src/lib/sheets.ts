@@ -14,7 +14,7 @@ export async function getLeagueData() {
 
     const ranges = [
       "'Leaderboard'!A1:AK9",    
-      "'Core_Roster'!A2:K15",   
+      "'Core_Roster'!A2:K16",   
       "'OAD'!A1:DJ69",  
       "'Filtered'!A1:G150",
       "'Tournament_Config'!H13",
