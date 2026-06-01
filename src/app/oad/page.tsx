@@ -12,8 +12,6 @@ export default async function OADPage() {
   const oadRows = allData.oad || [];
   const resultsData = allData.resultsData || [];
 
-  console.log("OAD Results Data:", resultsData.slice(0, 5)); // Log first 5 entries
-
   if (oadRows.length === 0) {
     return <div className="p-10 text-white text-center">No OAD data found.</div>;
   }
@@ -43,10 +41,6 @@ export default async function OADPage() {
           return matchesTournament && matchesOwner && matchesPlayer;
         });
 
-        if (!resultEntry && tournamentName) {
-          console.log(`No match found for: Tournament=${tournamentName}, Owner=${memberName} OAD, Player=${golfer}`);
-        }
-
         history.push({
           tournament: tournamentName,
           golfer: golfer,
@@ -70,6 +64,9 @@ export default async function OADPage() {
       history: [...history].reverse()
     };
   });
+
+  // Sort by total earnings descending
+  memberData.sort((a: any, b: any) => b.totalNumeric - a.totalNumeric);
 
   const maxEarnings = Math.max(...memberData.map((m: any) => m.totalNumeric));
 
