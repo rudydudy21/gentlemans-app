@@ -12,6 +12,7 @@ interface OADCardProps {
     tournament: string;
     golfer: string;
     money: string;
+    place?: string;
   }[];
   isLeader?: boolean;
 }
@@ -82,7 +83,7 @@ export default function OADCard({
           {history.map((week, idx) => (
             <div
               key={idx}
-              className="grid grid-cols-[1fr_auto] gap-4 items-center py-1 border-b border-white/5 last:border-0"
+              className="grid grid-cols-[1fr_auto_auto] gap-4 items-center py-1 border-b border-white/5 last:border-0"
             >
               {/* Left Side: Stacked Info */}
               <div className="flex flex-col min-w-0">
@@ -92,6 +93,14 @@ export default function OADCard({
                 <span className="text-gentle-stone text-[10px] uppercase tracking-wider truncate">
                   {week.tournament}
                 </span>
+              </div>
+
+              {/* Middle: Place */}
+              <div className="text-center">
+                <span className="text-white/60 text-xs font-mono font-bold">
+                  {week.place && week.place !== "-" ? `${week.place}` : "-"}
+                </span>
+                <span className="text-white/40 text-[9px] block uppercase tracking-tighter">Place</span>
               </div>
 
               {/* Right Side: Earnings */}

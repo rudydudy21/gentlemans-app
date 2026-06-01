@@ -10,6 +10,9 @@ export default async function OADPage() {
 
   const allData = transformSheetData(rawData);
   const oadRows = allData.oad || [];
+  const resultsData = allData.resultsData || [];
+
+  console.log("OAD Results Data:", resultsData.slice(0, 5)); // Log first 5 entries
 
   if (oadRows.length === 0) {
     return <div className="p-10 text-white text-center">No OAD data found.</div>;
@@ -32,10 +35,23 @@ export default async function OADPage() {
       const moneyStr = oadRows[earningsRow]?.[colIndex] || "$0";
       
       if (tournamentName && golfer && golfer.trim() !== "") {
+        // Look up the finish place from results data
+        const resultEntry = resultsData.find((result: any) => {
+          const matchesTournament = result.tournament === tournamentName;
+          const matchesOwner = result.owner === `${memberName} OAD`;
+          const matchesPlayer = result.player === golfer;
+          return matchesTournament && matchesOwner && matchesPlayer;
+        });
+
+        if (!resultEntry && tournamentName) {
+          console.log(`No match found for: Tournament=${tournamentName}, Owner=${memberName} OAD, Player=${golfer}`);
+        }
+
         history.push({
           tournament: tournamentName,
           golfer: golfer,
-          money: moneyStr
+          money: moneyStr,
+          place: resultEntry?.place || "-"
         });
         
         const numericMoney = Number(moneyStr.replace(/[^0-9.-]+/g, "")) || 0;
