@@ -75,42 +75,47 @@ export default function OADCard({
 
       {/* ================= HISTORY ================= */}
       {isOpen && (
-        <div className="bg-black/40 border-t border-white/5 px-6 sm:px-8 pb-6">
+        <div className="bg-black/40 border-t border-white/5 px-6 sm:px-8 py-4">
           {history.length > 0 ? (
-            <div className="mt-4 space-y-1">
-
-          {/* Rows */}
-          {history.map((week, idx) => (
-            <div
-              key={idx}
-              className="grid grid-cols-[1fr_auto_auto] gap-4 items-center py-1 border-b border-white/5 last:border-0"
-            >
-              {/* Left Side: Stacked Info */}
-              <div className="flex flex-col min-w-0">
-                <span className="text-gentle-gold font-bold text-sm uppercase italic leading-tight mb-1">
-                  {week.golfer}
-                </span>
-                <span className="text-gentle-stone text-[10px] uppercase tracking-wider truncate">
-                  {week.tournament}
-                </span>
+            <div className="space-y-2">
+              {/* Header Row */}
+              <div className="grid grid-cols-[2fr_0.8fr_1.2fr] gap-4 px-2 pb-2 border-b border-white/10">
+                <div className="text-[9px] text-gentle-stone uppercase font-bold tracking-widest">Player / Tournament</div>
+                <div className="text-center text-[9px] text-gentle-stone uppercase font-bold tracking-widest">Place</div>
+                <div className="text-right text-[9px] text-gentle-stone uppercase font-bold tracking-widest">Earnings</div>
               </div>
 
-              {/* Middle: Place */}
-              <div className="text-center">
-                <span className="text-white/60 text-xs font-mono font-bold">
-                  {week.place && week.place !== "-" ? `${week.place}` : "-"}
-                </span>
-                <span className="text-white/40 text-[9px] block uppercase tracking-tighter">Place</span>
-              </div>
+              {/* Rows */}
+              {history.map((week, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-[2fr_0.8fr_1.2fr] gap-4 items-center py-2 px-2 border-b border-white/5 last:border-0 hover:bg-white/[0.05] rounded transition-colors"
+                >
+                  {/* Left Side: Stacked Info */}
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-gentle-gold font-bold text-sm uppercase italic leading-tight">
+                      {week.golfer}
+                    </span>
+                    <span className="text-white/50 text-[9px] uppercase tracking-wider truncate mt-0.5">
+                      {week.tournament}
+                    </span>
+                  </div>
 
-              {/* Right Side: Earnings */}
-              <div className="text-right">
-                <span className="text-white text-sm font-mono font-bold tracking-tight tabular-nums">
-                  {formatToWholeDollar(week.money)}
-                </span>
-              </div>
-            </div>
-          ))}
+                  {/* Middle: Place */}
+                  <div className="text-center">
+                    <span className="text-white font-mono font-bold text-sm">
+                      {week.place && week.place !== "-" ? `${week.place}` : "-"}
+                    </span>
+                  </div>
+
+                  {/* Right Side: Earnings */}
+                  <div className="text-right">
+                    <span className="text-gentle-gold text-sm font-mono font-bold tabular-nums">
+                      {formatToWholeDollar(week.money)}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           ) : (
             <div className="py-12 text-center text-gentle-stone text-xs uppercase tracking-[0.3em] italic">
